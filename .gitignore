@@ -1,0 +1,8 @@
+__pycache__/
+build/
+dist/
+entry.xlsx
+*spec
+*.json
+*.zip
+*.pdf
