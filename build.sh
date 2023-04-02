@@ -1,0 +1,1 @@
+pyinstaller -F main.py -p config_read.py -p excel_export.py -p invoice_item.py -p pdf_ocr.py -p warehouse_entry.py --add-data 'tencent_config.json:.' --add-data 'template.xlsx:.' --hidden-import openpyxl.cell._writer
