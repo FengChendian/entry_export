@@ -15,6 +15,8 @@ import pdf_ocr
 import json
 from warehouse_entry import WarehouseEntry
 from excel_export import export_entry_workbook
+import os
+import sys
 
 def main(page: Page):
     page.title = "入库单生成器"
@@ -24,7 +26,8 @@ def main(page: Page):
     # page.horizontal_alignment = flet.MainAxisAlignment.CENTER
     # Pick files dialog
     # selected_files = Text()
-
+    if getattr(sys, 'frozen', None):
+        os.chdir(sys._MEIPASS)
     def pick_files_result(e: FilePickerResultEvent):
         # selected_files.value = (
         #     ", ".join(map(lambda f: f.name, e.files)
@@ -32,8 +35,8 @@ def main(page: Page):
         # )
         # print(e.files[0].name)
         # print(e.files[0].path)
-
-        pdf_base64 = get_pdf_base64("test_pdf.pdf")
+        
+        pdf_base64 = get_pdf_base64(e.files[0].path)
         pdf_info = pdf_ocr.ocr(pdf_base64=pdf_base64)
         # with open("test.json", "w") as f:
         #     f.write(pdf_info)
@@ -88,7 +91,7 @@ def main(page: Page):
         Column(
             [
                 ElevatedButton(
-                    "打开PDF文件",
+                    "打开文件",
                     icon=icons.UPLOAD_FILE,
                     on_click=lambda _: pick_files_dialog.pick_files(
                         allow_multiple=False
